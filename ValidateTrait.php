@@ -57,7 +57,7 @@ trait ValidateTrait
             return parent::save($runValidation, $attributeNames);
         }
         if ($runValidation) {
-            $this->validate($attributeNames);
+            return $this->validate($attributeNames);
         }
         $this->handlePrecognition();
     }
