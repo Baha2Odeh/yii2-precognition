@@ -26,4 +26,27 @@ trait ValidateTrait
         }
         return parent::validate($attributeNames, $clearErrors);
     }
+
+    /**
+     * @return bool
+     */
+    public function isPrecognition(): bool
+    {
+        if (!Yii::$app->has('request')) {
+            return false;
+        }
+        return Yii::$app->request->headers->get($this->precognitionHeader, false);
+    }
+
+    public function handlePrecognition()
+    {
+        if (!$this->isPrecognition()) {
+            return;
+        }
+        Yii::$app->response->headers->add('vary', 'precognition');
+        Yii::$app->response->headers->add('precognition', true);
+        Yii::$app->response->headers->add('precognition-success', true);
+        Yii::$app->response->setStatusCode(204)->send();
+        Yii::$app->end();
+    }
 }
