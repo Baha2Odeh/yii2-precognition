@@ -11,6 +11,6 @@ trait ValidateTrait
 {
 
     public function validate($attributeNames = null, $clearErrors = true){
-        parent::validate($attributeNames = null, $clearErrors = true);
+        return parent::validate($attributeNames = null, $clearErrors = true);
     }
 }
