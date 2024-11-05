@@ -7,7 +7,6 @@ use yii\base\Model;
 class Serializer extends \yii\rest\Serializer
 {
     public $precognitionHeader = 'Precognition';
-    public $precognitionValidateOnlyHeader = 'Precognition-Validate-Only';
 
     public function serialize($data)
     {
@@ -30,18 +29,7 @@ class Serializer extends \yii\rest\Serializer
         $this->response->setStatusCode(422, 'Data Validation Failed.');
         $errors = [];
         $message = null;
-
-
-        $precognitionValidateOnlyHeader = $this->request->headers->get($this->precognitionValidateOnlyHeader);
-        $partialAttributes = false;
-        if(!empty($precognitionValidateOnlyHeader)) {
-            $precognitionValidateOnlyHeader = explode(',', $precognitionValidateOnlyHeader);
-            $partialAttributes = true;
-        }
         foreach ($model->getFirstErrors() as $attribute => $error) {
-//            if ($partialAttributes && !isset($precognitionValidateOnlyHeader[$attribute])) {
-//                continue;
-//            }
             $errors[$attribute][] = $error;
             if (empty($message)) {
                 $message = $error;
