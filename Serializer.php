@@ -6,12 +6,21 @@ use yii\base\Model;
 
 class Serializer extends \yii\rest\Serializer
 {
+    /**
+     * @var string header key to do validation only without having to save
+     */
     public $precognitionHeader = 'Precognition';
+
+    /**
+     * @var string header key that allow you to submit and save, but in case there are errors to return the response as precognition
+     */
+    public $precognitionOnSubmitHeader = 'Precognition-On-Submit';
 
     public function serialize($data)
     {
         $isPrecognitionRequest = $this->request->headers->get($this->precognitionHeader);
-        if ($data instanceof Model && $data->hasErrors() && $isPrecognitionRequest) {
+        $isPrecognitionOnSubmitHeader = $this->request->headers->get($this->precognitionOnSubmitHeader);
+        if ($data instanceof Model && $data->hasErrors() && ($isPrecognitionRequest || $isPrecognitionOnSubmitHeader) ) {
             return $this->serializePrecognitionModelErrors($data);
         }
 

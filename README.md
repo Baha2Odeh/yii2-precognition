@@ -70,3 +70,17 @@ class UserController extends \yii\rest\ActiveController
     public $serializer = \Baha2Odeh\Precognition\Serializer::class;
     ...
 ```
+
+
+in frontend side you have to add a new header in the axios requests to allow Yii to return 'precognition' response in case the submit was failed
+```js
+import axios from 'axios'
+import { client } from 'laravel-precognition-vue';
+
+axios.interceptors.request.use(config => {
+config.headers['precognition-on-submit'] = "true"
+return config
+})
+
+client.use(axios)
+```
