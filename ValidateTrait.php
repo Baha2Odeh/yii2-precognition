@@ -49,4 +49,16 @@ trait ValidateTrait
         Yii::$app->response->setStatusCode(204)->send();
         Yii::$app->end();
     }
+
+
+    public function save($runValidation = true, $attributeNames = null)
+    {
+        if (!$this->isPrecognition()) {
+            return parent::save($runValidation, $attributeNames);
+        }
+        if ($runValidation) {
+            $this->validate($attributeNames);
+        }
+        $this->handlePrecognition();
+    }
 }
