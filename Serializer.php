@@ -39,9 +39,9 @@ class Serializer extends \yii\rest\Serializer
             $partialAttributes = true;
         }
         foreach ($model->getFirstErrors() as $attribute => $error) {
-            if ($partialAttributes && !isset($precognitionValidateOnlyHeader[$attribute])) {
-                continue;
-            }
+//            if ($partialAttributes && !isset($precognitionValidateOnlyHeader[$attribute])) {
+//                continue;
+//            }
             $errors[$attribute][] = $error;
             if (empty($message)) {
                 $message = $error;
