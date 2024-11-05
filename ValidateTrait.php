@@ -44,8 +44,8 @@ trait ValidateTrait
             return;
         }
         Yii::$app->response->headers->add('vary', 'precognition');
-        Yii::$app->response->headers->add('precognition', true);
-        Yii::$app->response->headers->add('precognition-success', true);
+        Yii::$app->response->headers->add('precognition', 'true');
+        Yii::$app->response->headers->add('precognition-success', 'true');
         Yii::$app->response->setStatusCode(204)->send();
         Yii::$app->end();
     }

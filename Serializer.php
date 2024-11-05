@@ -36,7 +36,7 @@ class Serializer extends \yii\rest\Serializer
     protected function serializePrecognitionModelErrors($model)
     {
         $this->response->setStatusCode(422, 'Data Validation Failed.');
-        $this->response->headers->add('precognition',true);
+        $this->response->headers->add('precognition','true');
         $errors = [];
         $message = null;
         foreach ($model->getFirstErrors() as $attribute => $error) {
