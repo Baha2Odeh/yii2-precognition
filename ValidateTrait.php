@@ -48,7 +48,6 @@ trait ValidateTrait
         Yii::$app->response->headers->add('precognition-success', true);
         Yii::$app->response->data = '';
         Yii::$app->response->setStatusCode(204)->send();
-        die("we are here");
         Yii::$app->end();
     }
 
@@ -58,8 +57,8 @@ trait ValidateTrait
         if (!$this->isPrecognition()) {
             return parent::save($runValidation, $attributeNames);
         }
-        if ($runValidation) {
-            return $this->validate($attributeNames);
+        if ($runValidation && !$this->validate($attributeNames)) {
+            return false;
         }
         $this->handlePrecognition();
     }
