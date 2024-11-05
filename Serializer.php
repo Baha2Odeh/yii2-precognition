@@ -30,12 +30,16 @@ class Serializer extends \yii\rest\Serializer
     {
         $this->response->setStatusCode(422, 'Data Validation Failed.');
         $errors = [];
+        $general_message = null;
         foreach ($model->getFirstErrors() as $name => $message) {
             $errors[$name][] = $message;
+            if(empty($general_message)){
+                $general_message = $message;
+            }
         }
 
         return [
-            'message' => 'null',
+            'message' => $general_message,
             'errors' => $errors,
         ];
     }
